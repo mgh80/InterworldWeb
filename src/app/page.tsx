@@ -1,103 +1,161 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import ServiceCard from "@/components/ServiceCard";
+import StatsSection from "@/components/StatsSection";
+import { useRef } from "react";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+
+const services = [
+  {
+    title: "Fletes Marítimos",
+    description: "Envía tu carga por vía marítima con cobertura global.",
+    image: "/maritimo.png",
+  },
+  {
+    title: "Fletes Aéreos",
+    description:
+      "Ideal para cargas urgentes. Llegamos rápido a cualquier destino del mundo.",
+    image: "/aereo.png",
+  },
+  {
+    title: "Fletes Terrestres",
+    description: "Transporte terrestre seguro y puntual a nivel nacional.",
+    image: "/terrestre.png",
+  },
+  {
+    title: "OTM: Transporte Multimodal",
+    description:
+      "Conectamos modos de transporte en una sola operación logística eficiente.",
+    image: "/otm.png",
+  },
+  {
+    title: "NVOCC",
+    description:
+      "Consolidamos tus envíos con total respaldo como operador NVOCC autorizado.",
+    image: "/nvocc.png",
+  },
+  {
+    title: "Seguro de Contenedor",
+    description:
+      "Protege tu carga durante todo el trayecto con nuestros seguros especializados.",
+    image: "/seguro.png",
+  },
+  {
+    title: "Transporte Nacional FCL, LCL y Refrigerado",
+    description:
+      "Soluciones para todo tipo de carga: contenedor completo, compartido o refrigerado.",
+    image: "/refrigerado.png",
+  },
+  {
+    title: "Carga en Tránsito Aduanero",
+    description:
+      "Expertos en OTM y DTA para operaciones de tránsito bajo control aduanero.",
+    image: "/aduanero.png",
+  },
+  {
+    title: "Expresos (Cargas Urgentes)",
+    description:
+      "Movemos tu carga de forma urgente con seguimiento personalizado.",
+    image: "/expresos.png",
+  },
+  {
+    title: "Distribución Urbana",
+    description:
+      "Entregas rápidas, eficientes y seguras en zonas urbanas clave.",
+    image: "/urbana.png",
+  },
+  {
+    title: "ITR (Inland Transport Rule)",
+    description:
+      "Gestionamos el traslado terrestre previo o posterior al transporte marítimo.",
+    image: "/itr.png",
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const scroll = (offset: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: offset, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <>
+      {/* 🎥 Sección de Video Portada */}
+      <div className="relative h-screen overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+        >
+          <source src="/videos/home_video.mp4" type="video/mp4" />
+          Tu navegador no soporta video en HTML5.
+        </video>
+
+        <div className="absolute inset-0 bg-black/60 z-0" />
+
+        <div className="relative z-10 flex flex-col justify-center items-start h-full px-10 max-w-6xl text-white">
+          <h1 className="text-5xl font-bold mb-6 drop-shadow-lg">
+            Conectamos tu mundo
+          </h1>
+          <p className="text-lg mb-8 max-w-xl drop-shadow-md">
+            Logística internacional eficiente, inteligente y segura para
+            empresas que mueven el mundo. Transporte terrestre, aéreo y marítimo
+            desde un solo lugar.
+          </p>
+          <Link
+            href="/services"
+            className="bg-blue-700 hover:bg-blue-800 transition px-6 py-3 rounded-full font-semibold text-white shadow-lg"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Conoce nuestros servicios
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+
+      {/* 🚚 Sección de Servicios Destacados con Scroll Snap */}
+      <section className="bg-white py-20 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-4xl font-bold text-blue-900 text-center mb-12">
+            Soluciones logísticas destacadas
+          </h2>
+
+          <div className="relative">
+            {/* Flecha Izquierda */}
+            <button
+              onClick={() => scroll(-300)}
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-blue-100"
+            >
+              <ChevronLeftIcon className="h-6 w-6 text-blue-700" />
+            </button>
+
+            {/* Carrusel horizontal */}
+            <div
+              ref={scrollRef}
+              className="flex space-x-10 overflow-x-auto snap-x snap-mandatory scroll-smooth px-8 pb-4 hide-scrollbar"
+            >
+              {services.map((srv, i) => (
+                <div key={i} className="snap-start shrink-0 w-[300px]">
+                  <ServiceCard {...srv} />
+                </div>
+              ))}
+            </div>
+
+            {/* Flecha Derecha */}
+            <button
+              onClick={() => scroll(300)}
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow hover:bg-blue-100"
+            >
+              <ChevronRightIcon className="h-6 w-6 text-blue-700" />
+            </button>
+          </div>
+        </div>
+      </section>
+      <StatsSection />
+    </>
   );
 }
